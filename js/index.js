@@ -8,6 +8,7 @@ var myGameArea = {
     start: function(){
       this.canvas.width = 480;
       this.canvas.height = 270;
+      this.canvas.style.cursor = 'none'; /* cursor hide*/
       this.context = this.canvas.getContext("2d");
     
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -19,6 +20,11 @@ var myGameArea = {
       window.addEventListener('keyup', function(e){
         myGameArea.keys[e.keyCode] = false;
       } );
+      window.addEventListener('mousemove', function(e) {
+        myGameArea.x = e.pageX;
+        myGameArea.y = e.pageY;
+      } );
+      
     },
     clear: function(){
       this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
@@ -58,7 +64,8 @@ function updateGameArea(){
   // myGamePiece.x += 1;
   myGamePiece.speedX = 0;
   myGamePiece.speedY = 0;
-  ctrl();
+  keyoardCtrl();
+  mouseCtrl();
   
   myGamePiece.newPos();
   myGamePiece.update();
@@ -85,7 +92,7 @@ function move(type){
   }
 }
 
-function ctrl(){
+function keyoardCtrl(){
   var keys = myGameArea.keys;
   if(keys){
     if(keys[37]) myGamePiece.speedX = -1;
@@ -93,4 +100,7 @@ function ctrl(){
     if(keys[38]) myGamePiece.speedY = -1;
     if(keys[40]) myGamePiece.speedY =  1;
   }
+}
+
+function mouseCtrl(){
 }
