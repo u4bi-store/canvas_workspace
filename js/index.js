@@ -62,9 +62,7 @@ function component(width, height, color, x, y){
 function updateGameArea(){
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
-  myGamePiece.speedX = 0;
-  myGamePiece.speedY = 0;
-  keyoardCtrl();
+  //keyoardCtrl();
   mouseCtrl();
   
   myGamePiece.newPos();
@@ -93,6 +91,8 @@ function move(type){
 }
 
 function keyoardCtrl(){
+  myGamePiece.speedX = 0;
+  myGamePiece.speedY = 0;
   var keys = myGameArea.keys;
   if(keys){
     if(keys[37]) myGamePiece.speedX = -1;
@@ -103,4 +103,8 @@ function keyoardCtrl(){
 }
 
 function mouseCtrl(){
+  var x = myGameArea.x;
+  var y = myGameArea.y;
+  
+  if(x && y) myGamePiece.x = x; myGamePiece.y = y;
 }
