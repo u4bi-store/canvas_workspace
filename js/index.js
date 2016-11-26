@@ -8,6 +8,7 @@ var myObstacles = [];
 
 var myScore;
 var myBackground;
+var mySound;
 
 var myGameArea = {
   canvas : document.createElement("canvas"),
@@ -77,6 +78,7 @@ function init(){
   
   myScore = new component('30px', 'Consolas', 'black', 280, 40, 'text');
   myBackground = new component(480, 270, 'images/background.png', 0, 0, 'background');
+  mySound = new sound('lib/bounce.mp3');
 };
 
 function component(width, height, color, x, y, type){
@@ -151,42 +153,45 @@ function component(width, height, color, x, y, type){
 }
 
 function updateGameArea(){
-  if(isHit()) return myGameArea.stop();
-  
-  myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
-  // myGamePiece.x += 1;
-  
-  myBackground.speedX = -1;
-  myBackground.newPos();
-  myBackground.update(); /* 배경이므로 캔버스가 그려지는 순서에 의해 앞렬*/
-  
-  //keyoardCtrl();
-  //mouseCtrl();
-  //touchCtrl();
-  canvasCtrl();
-  
-  btnUp.update();
-  btnDown.update();
-  btnLeft.update();
-  btnRight.update();
-  //myGamePiece.newPos();
-  myGamePiece.update();
-  
-  
-  redGamePiece.update();
-  blueGamePiece.update();
-  yellowGamePiece.update();
-  
-  redGamePiece.x +=2;
-  blueGamePiece.x +=2;
-  yellowGamePiece.x +=2;
+  if(isHit()){
+    mySound.play();
+    myGameArea.stop();
+  }else{
+    myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
+    // myGamePiece.x += 1;
 
-  myGameArea.frameNo += 1;
-  pushObstacle();
-  updateObstacle();
-  
-  myScore.text='스코어: '+myGameArea.frameNo;
-  myScore.update();
+    myBackground.speedX = -1;
+    myBackground.newPos();
+    myBackground.update(); /* 배경이므로 캔버스가 그려지는 순서에 의해 앞렬*/
+
+    //keyoardCtrl();
+    //mouseCtrl();
+    //touchCtrl();
+    canvasCtrl();
+
+    btnUp.update();
+    btnDown.update();
+    btnLeft.update();
+    btnRight.update();
+    //myGamePiece.newPos();
+    myGamePiece.update();
+
+
+    redGamePiece.update();
+    blueGamePiece.update();
+    yellowGamePiece.update();
+
+    redGamePiece.x +=2;
+    blueGamePiece.x +=2;
+    yellowGamePiece.x +=2;
+
+    myGameArea.frameNo += 1;
+    pushObstacle();
+    updateObstacle();
+
+    myScore.text='스코어: '+myGameArea.frameNo;
+    myScore.update();
+  }
 }
 /* move type
    @ type : up 0/down 1/left 2/right 3/
@@ -285,4 +290,20 @@ function updateObstacle(){
     movingObstacle(i);
     myObstacles[i].update();
   }
+}
+
+function sound(src){
+  this.sound = document.createElement('audio');
+  this.sound.src = src;
+  this.sound.setAttribute('preload', 'auto');
+  this.sound.setAttribute('controls', 'none');
+  this.sound.style.display = 'none';
+  
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  };
+  this.stop = function(){
+    this.sound.pause();
+  };
 }
