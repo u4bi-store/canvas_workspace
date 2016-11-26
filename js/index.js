@@ -4,6 +4,8 @@ var myGamePiece;
 var redGamePiece, blueGamePiece, yellowGamePiece;
 var btnUp, btnDown, btnLeft, btnRight;
 
+var myObstacle;
+
 var myGameArea = {
   canvas : document.createElement("canvas"),
     start: function(){
@@ -65,6 +67,8 @@ function init(){
   btnDown = new component(30,30,'blue',50,70);
   btnLeft = new component(30,30,'blue',20,40);
   btnRight = new component(30,30,'blue',80,40);
+  
+  myObstacle = new component(10, 200, 'green', 300, 120);
 };
 
 function component(width, height, color, x, y){
@@ -122,6 +126,8 @@ function updateGameArea(){
   redGamePiece.x +=2;
   blueGamePiece.x +=2;
   yellowGamePiece.x +=2;
+  
+  myObstacle.update();
 }
 /* move type
    @ type : up 0/down 1/left 2/right 3/
