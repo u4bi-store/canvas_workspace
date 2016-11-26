@@ -67,7 +67,7 @@ function init(){
   blueGamePiece = new component(75,75, "yellow", 10, 100);
   yellowGamePiece = new component(75,75, "blue", 10, 200);
   
-  myGamePiece = new component(10,140, 'rgba(0, 0, 255, 0.5)', 2, 2); /* x, y */
+  myGamePiece = new component(30,30, 'images/smiley.gif', 2, 2, 'image'); /* x, y */
   
   btnUp = new component(30,30,'blue',50,10);
   btnDown = new component(30,30,'blue',50,70);
@@ -79,6 +79,10 @@ function init(){
 
 function component(width, height, color, x, y, type){
   this.type = type;
+  if(type == 'image'){
+    this.image = new Image();
+    this.image.src = color;
+  }
   this.width = width;
   this.height = height;
   this.speedX = 0;
@@ -87,7 +91,11 @@ function component(width, height, color, x, y, type){
   this.y = y;
   this.update = function(){
     var ctx = myGameArea.context;
-    if(this.type == 'text'){
+    
+    if(this.type =='image'){
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    }
+    else if(this.type == 'text'){
       ctx.font = this.width + ' ' + this.height;
       ctx.fillStyle = color;
       ctx.fillText(this.text, this.x, this.y);
