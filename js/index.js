@@ -12,8 +12,12 @@ var myGameArea = {
     
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.interval = setInterval(updateGameArea, 20);
-      windwo.addEventListener('', function(e){ } );
-      windwo.addEventListener('', function(e){ } );
+      windwo.addEventListener('', function(e){
+        myGameArea.key = e.keyCode;
+      } );
+      windwo.addEventListener('', function(e){
+        myGameArea.key = false;
+      } );
     },
     clear: function(){
       this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
