@@ -55,6 +55,7 @@ function component(width, height, color, x, y){
 function updateGameArea(){
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
+  key();
   myGamePiece.newPos();
   myGamePiece.update();
   
@@ -77,5 +78,21 @@ function move(type){
       case 2: myGamePiece.speedX -=2; break;
       case 3: myGamePiece.speedX +=2; break;
       default : myGamePiece.speedX = 0; myGamePiece.speedY = 0; break;
+  }
+}
+
+function key(){
+  myGamePiece.speedX = 0;
+  myGamePiece.speedY = 0;
+  
+  var key = myGameArea.key;
+  if(key){
+    switch(key){
+      case 37 : break;
+      case 39 : break;
+      case 38 : break;
+      case 40 : break;
+      default : break;
+    }
   }
 }
