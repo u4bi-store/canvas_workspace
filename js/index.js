@@ -24,6 +24,10 @@ var myGameArea = {
         myGameArea.x = e.pageX;
         myGameArea.y = e.pageY;
       } );
+      window.addEventListener('touchmove', function(e) {
+        myGameArea.x2 = e.touches[0].screenX;
+        myGameArea.y2 = e.touches[0].screenY;
+      } );
       
     },
     clear: function(){
@@ -63,7 +67,8 @@ function updateGameArea(){
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
   //keyoardCtrl();
-  mouseCtrl();
+  //mouseCtrl();
+  touchCtrl();
   
   myGamePiece.newPos();
   myGamePiece.update();
@@ -107,4 +112,7 @@ function mouseCtrl(){
   var y = myGameArea.y;
   
   if(x && y) myGamePiece.x = x; myGamePiece.y = y;
+}
+
+function touchCtrl(){
 }
