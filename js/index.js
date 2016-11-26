@@ -19,7 +19,7 @@ var myGameArea = {
 
 function init(){
   myGameArea.start();
-  myGamePiece = new component(10,140, 'blue', 10, 120);
+  myGamePiece = new component(10,140, 'rgba(0, 0, 255, 0.5)', 10, 120);
 };
 
 function component(width, height, color, x, y){
