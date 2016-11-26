@@ -115,4 +115,8 @@ function mouseCtrl(){
 }
 
 function touchCtrl(){
+  var x = myGameArea.x2;
+  var y = myGameArea.y2;
+  
+  if(x && y) myGamePiece.x = x; myGamePiece.y = y;
 }
