@@ -76,12 +76,12 @@ function init(){
   btnRight = new component(30,30,'blue',80,40);
   
   myScore = new component('30px', 'Consolas', 'black', 280, 40, 'text');
-  myBackground = new component(480, 270, 'images/background.png', 0, 0, 'image');
+  myBackground = new component(480, 270, 'images/background.png', 0, 0, 'background');
 };
 
 function component(width, height, color, x, y, type){
   this.type = type;
-  if(type == 'image'){
+  if(type == 'image' || type == 'background'){
     this.image = new Image();
     this.image.src = color;
   }
@@ -94,8 +94,11 @@ function component(width, height, color, x, y, type){
   this.update = function(){
     var ctx = myGameArea.context;
     
-    if(this.type =='image'){
+    if(this.type =='image' || this.type == 'background'){
       ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      if(type == 'background'){
+        ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
+      }
     }
     else if(this.type == 'text'){
       ctx.font = this.width + ' ' + this.height;
@@ -123,6 +126,11 @@ function component(width, height, color, x, y, type){
   this.newPos = function(){
     this.x += this.speedX;
     this.y += this.speedY;
+    if(this.type == 'background'){
+      if(this.x == -(this.width)){
+        this.x = 0;
+      }
+    }
   };
   this.crashWith = function(otherobj){
     var left = this.x;
