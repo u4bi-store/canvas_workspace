@@ -71,6 +71,6 @@ function move(type){
       case 1: myGamePiece.speedY +=2; break;
       case 2: myGamePiece.speedX -=2; break;
       case 3: myGamePiece.speedX +=2; break;
-      default : break;
+      default : myGamePiece.speedX = 0; myGamePiece.speedY = 0; break;
   }
 }
