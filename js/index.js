@@ -9,7 +9,7 @@ var myGameArea = {
     start: function(){
       this.canvas.width = 480;
       this.canvas.height = 270;
-      this.canvas.style.cursor = 'none'; /* cursor hide*/
+      // this.canvas.style.cursor = 'none'; /* cursor hide*/
       this.context = this.canvas.getContext("2d");
     
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -21,18 +21,30 @@ var myGameArea = {
       window.addEventListener('keyup', function(e){
         myGameArea.keys[e.keyCode] = false;
       } );
-      window.addEventListener('mousemove', function(e) {
-        myGameArea.x = e.pageX;
-        myGameArea.y = e.pageY;
-      } );
+      // window.addEventListener('mousemove', function(e) {
+      //   myGameArea.x = e.pageX;
+      //   myGameArea.y = e.pageY;
+      // } );
       window.addEventListener('touchmove', function(e) {
         myGameArea.x2 = e.touches[0].screenX;
         myGameArea.y2 = e.touches[0].screenY;
       } );
-      window.addEventListener('mousedown',  function(e) { } );
-      window.addEventListener('mouseup',    function(e) { } );
-      window.addEventListener('touchstart', function(e) { } );
-      window.addEventListener('touchend',   function(e) { } );
+      window.addEventListener('mousedown',  function(e) {
+        myGameArea.x = e.pageX;
+        myGameArea.y = e.pageY;
+      } );
+      window.addEventListener('mouseup',    function(e) {
+        myGameArea.x = false;
+        myGameArea.y = false;
+      } );
+      window.addEventListener('touchstart', function(e) {
+        myGameArea.x = e.pageX;
+        myGameArea.y = e.pageY;
+      } );
+      window.addEventListener('touchend',   function(e) {
+        myGameArea.x = false;
+        myGameArea.y = false;
+      } );
       
     },
     clear: function(){
@@ -68,7 +80,18 @@ function component(width, height, color, x, y){
     ctx.fillRect(this.x, this.y, this.width, this.height);
   };
   this.clicked = function(){
+    var left = this.x;
+    var right = this.x + (this.width);
     
+    var top = this.y;
+    var bottom = this.y + (this.height);
+    
+    var area_x = myGameArea.x;
+    var area_y = myGameArea.y;
+    
+    var clicked = true;
+    if( (bottom < area_y)||(top > area_y)||(right < area_x)||(left > area_x) ) clicked = false;
+    return clicked;
   };
   this.newPos = function(){
     this.x += this.speedX;
@@ -84,6 +107,10 @@ function updateGameArea(){
   //touchCtrl();
   canvasCtrl();
   
+  btnUp.update();
+  btnDown.update();
+  btnLeft.update();
+  btnRight.update();
   //myGamePiece.newPos();
   myGamePiece.update();
   
@@ -136,5 +163,14 @@ function touchCtrl(){
 }
 
 function canvasCtrl(){
+
+  var x = myGameArea.x;
+  var y = myGameArea.y;
   
+  if(x && y){
+    if(btnUp.clicked()) myGamePiece.y -= 1;
+    if(btnDown.clicked()) myGamePiece.y += 1;
+    if(btnLeft.clicked()) myGamePiece.x -= 1;
+    if(btnRight.clicked()) myGamePiece.x += 1;
+  }
 }
