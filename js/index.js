@@ -133,13 +133,18 @@ function component(width, height, color, x, y, type){
   this.newPos = function(){
     this.x += this.speedX;
     if(this.type == 'background'){
-      if(this.x == -(this.width)){
-        this.x = 0;
-      }
+      if(this.x == -(this.width)) this.x = 0;
       this.y += this.speedY;
     }else{
       this.gravitySpeed += this.gravity;
       this.y += this.speedY + this.gravitySpeed;
+    }
+    this.hitBottom();
+  };
+  this.hitBottom = function(){
+    var rockbottom = myGameArea.canvas.height - this.height;
+    if(this.y > rockbottom){
+      this.y = rockbottom;
     }
   };
   this.crashWith = function(otherobj){
