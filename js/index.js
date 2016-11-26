@@ -213,16 +213,19 @@ function touchCtrl(){
 }
 
 function canvasCtrl(){
-
+  
   var x = myGameArea.x;
   var y = myGameArea.y;
   
   if(x && y){
+    myGamePiece.image.src = 'images/angry.gif';
+    
     if(btnUp.clicked()) myGamePiece.y -= 1;
     if(btnDown.clicked()) myGamePiece.y += 1;
     if(btnLeft.clicked()) myGamePiece.x -= 1;
     if(btnRight.clicked()) myGamePiece.x += 1;
-  }
+    
+  }else myGamePiece.image.src = 'images/smiley.gif';
 }
 
 function isHit(){
