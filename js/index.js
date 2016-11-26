@@ -149,6 +149,7 @@ function updateGameArea(){
   yellowGamePiece.x +=2;
   
   myObstacle.update();
+  movingObstacle();
 }
 /* move type
    @ type : up 0/down 1/left 2/right 3/
@@ -204,4 +205,8 @@ function canvasCtrl(){
 
 function isHit(){
   if(myGamePiece.crashWith(myObstacle))return true; 
+}
+
+function movingObstacle(){
+  myObstacle.x += -1;
 }
