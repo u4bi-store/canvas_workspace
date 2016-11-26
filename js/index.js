@@ -45,7 +45,13 @@ function updateGameArea(){
   myGamePiece.x += 1;
   myGamePiece.update();
   
+  
   redGamePiece.update();
   blueGamePiece.update();
   yellowGamePiece.update();
+  
+  redGamePiece.x +=2;
+  blueGamePiece.x +=2;
+  yellowGamePiece.x +=2;
+  
 }
