@@ -105,11 +105,26 @@ function component(width, height, color, x, y){
     this.y += this.speedY;
   };
   this.crashWith = function(otherobj){
+    var left = this.x;
+    var right = this.x + (this.width);
     
+    var top = this.y;
+    var bottom = this.y + (this.height);
+    
+    var obj_left = otherobj.x;
+    var obj_right = otherobj.x + (otherobj.width);
+    var obj_top = otherobj.y;
+    var obj_bottom = otherobj.y + (otherobj.height);
+    
+    var crash = true;
+    if((bottom<obj_top)||(top>obj_bottom)||(right<obj_left)||(left>obj_right))crash = false;
+    return crash;
   };
 }
 
 function updateGameArea(){
+  if(isHit()) return myGameArea.stop();
+  
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
   //keyoardCtrl();
@@ -134,7 +149,6 @@ function updateGameArea(){
   yellowGamePiece.x +=2;
   
   myObstacle.update();
-  hit();  
 }
 /* move type
    @ type : up 0/down 1/left 2/right 3/
@@ -188,6 +202,6 @@ function canvasCtrl(){
   }
 }
 
-function hit(){
-  
+function isHit(){
+  if(myGamePiece.crashWith(myObstacle))return true; 
 }
