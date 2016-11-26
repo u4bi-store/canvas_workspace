@@ -148,6 +148,7 @@ function updateGameArea(){
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
   
+  myBackground.speedX = -1;
   myBackground.newPos();
   myBackground.update(); /* 배경이므로 캔버스가 그려지는 순서에 의해 앞렬*/
   
