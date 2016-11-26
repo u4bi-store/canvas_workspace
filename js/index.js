@@ -320,3 +320,7 @@ function sound(src){
     this.sound.pause();
   };
 }
+
+function accelerate(n) {
+    myGamePiece.gravity = n;
+}
