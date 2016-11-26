@@ -17,7 +17,7 @@ var myGameArea = {
         myGameArea.keys[e.keyCode] = true;
       } );
       window.addEventListener('keyup', function(e){
-        myGameArea.key[e.keyCode] = false;
+        myGameArea.keys[e.keyCode] = false;
       } );
     },
     clear: function(){
@@ -86,14 +86,11 @@ function move(type){
 }
 
 function ctrl(){
-  var key = myGameArea.key;
-  if(key){
-    switch(key){
-      case 37 : myGamePiece.speedX = -1; break;
-      case 39 : myGamePiece.speedX =  1; break;
-      case 38 : myGamePiece.speedY = -1; break;
-      case 40 : myGamePiece.speedY =  1; break;
-      default : break;
-    }
+  var keys = myGameArea.keys;
+  if(keys){
+    if(keys[37]) myGamePiece.speedX = -1;
+    if(keys[39]) myGamePiece.speedX =  1;
+    if(keys[38]) myGamePiece.speedY = -1;
+    if(keys[40]) myGamePiece.speedY =  1;
   }
 }
