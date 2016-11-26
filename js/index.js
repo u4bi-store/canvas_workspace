@@ -7,6 +7,7 @@ var btnUp, btnDown, btnLeft, btnRight;
 var myObstacles = [];
 
 var myScore;
+var myBackground;
 
 var myGameArea = {
   canvas : document.createElement("canvas"),
@@ -75,6 +76,7 @@ function init(){
   btnRight = new component(30,30,'blue',80,40);
   
   myScore = new component('30px', 'Consolas', 'black', 280, 40, 'text');
+  myBackground = new component(480, 270, 'images/background.png', 0, 0, 'image');
 };
 
 function component(width, height, color, x, y, type){
@@ -145,6 +147,10 @@ function updateGameArea(){
   
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
+  
+  myBackground.newPos();
+  myBackground.update(); /* 배경이므로 캔버스가 그려지는 순서에 의해 앞렬*/
+  
   //keyoardCtrl();
   //mouseCtrl();
   //touchCtrl();
