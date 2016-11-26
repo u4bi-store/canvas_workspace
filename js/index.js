@@ -81,7 +81,6 @@ function init(){
   myBackground = new component(480, 270, 'images/background.png', 0, 0, 'background');
   mySound = new sound('lib/bounce.mp3');
   myMusic = new sound('lib/background.mp3');
-  
   myMusic.play();
 };
 
@@ -95,6 +94,8 @@ function component(width, height, color, x, y, type){
   this.height = height;
   this.speedX = 0;
   this.speedY = 0;
+  this.gravity = 0.01;
+  this.gravitySpeed = 0;
   this.x = x;
   this.y = y;
   this.update = function(){
@@ -131,11 +132,14 @@ function component(width, height, color, x, y, type){
   };
   this.newPos = function(){
     this.x += this.speedX;
-    this.y += this.speedY;
     if(this.type == 'background'){
       if(this.x == -(this.width)){
         this.x = 0;
       }
+      this.y += this.speedY;
+    }else{
+      this.gravitySpeed += this.gravity;
+      this.y += this.speedY + this.gravitySpeed;
     }
   };
   this.crashWith = function(otherobj){
@@ -168,16 +172,16 @@ function updateGameArea(){
     myBackground.newPos();
     myBackground.update(); /* 배경이므로 캔버스가 그려지는 순서에 의해 앞렬*/
 
-    //keyoardCtrl();
+    keyoardCtrl();
     //mouseCtrl();
     //touchCtrl();
-    canvasCtrl();
+    //canvasCtrl();
 
     btnUp.update();
     btnDown.update();
     btnLeft.update();
     btnRight.update();
-    //myGamePiece.newPos();
+    myGamePiece.newPos();
     myGamePiece.update();
 
 
