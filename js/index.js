@@ -51,6 +51,9 @@ var myGameArea = {
     },
     clear: function(){
       this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
+    },
+    stop: function(){
+      clearInterval(this.interval);
     }
 };
 
@@ -101,6 +104,9 @@ function component(width, height, color, x, y){
     this.x += this.speedX;
     this.y += this.speedY;
   };
+  this.crashWith = function(otherobj){
+    
+  };
 }
 
 function updateGameArea(){
@@ -128,6 +134,7 @@ function updateGameArea(){
   yellowGamePiece.x +=2;
   
   myObstacle.update();
+  hit();  
 }
 /* move type
    @ type : up 0/down 1/left 2/right 3/
@@ -179,4 +186,8 @@ function canvasCtrl(){
     if(btnLeft.clicked()) myGamePiece.x -= 1;
     if(btnRight.clicked()) myGamePiece.x += 1;
   }
+}
+
+function hit(){
+  
 }
