@@ -12,10 +12,10 @@ var myGameArea = {
     
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.interval = setInterval(updateGameArea, 20);
-      windwo.addEventListener('', function(e){
+      window.addEventListener('keydown', function(e){
         myGameArea.key = e.keyCode;
       } );
-      windwo.addEventListener('', function(e){
+      window.addEventListener('keyup', function(e){
         myGameArea.key = false;
       } );
     },
@@ -55,7 +55,10 @@ function component(width, height, color, x, y){
 function updateGameArea(){
   myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   // myGamePiece.x += 1;
-  key();
+  myGamePiece.speedX = 0;
+  myGamePiece.speedY = 0;
+  ctrl();
+  
   myGamePiece.newPos();
   myGamePiece.update();
   
@@ -81,17 +84,14 @@ function move(type){
   }
 }
 
-function key(){
-  myGamePiece.speedX = 0;
-  myGamePiece.speedY = 0;
-  
+function ctrl(){
   var key = myGameArea.key;
   if(key){
     switch(key){
-      case 37 : break;
-      case 39 : break;
-      case 38 : break;
-      case 40 : break;
+      case 37 : myGamePiece.speedX = -1; break;
+      case 39 : myGamePiece.speedX =  1; break;
+      case 38 : myGamePiece.speedY = -1; break;
+      case 40 : myGamePiece.speedY =  1; break;
       default : break;
     }
   }
