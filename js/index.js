@@ -2,6 +2,7 @@
 
 var myGamePiece;
 var redGamePiece, blueGamePiece, yellowGamePiece;
+var btnUp, btnDown, btnLeft, btnRight;
 
 var myGameArea = {
   canvas : document.createElement("canvas"),
@@ -28,6 +29,10 @@ var myGameArea = {
         myGameArea.x2 = e.touches[0].screenX;
         myGameArea.y2 = e.touches[0].screenY;
       } );
+      window.addEventListener('mousedown',  function(e) { } );
+      window.addEventListener('mouseup',    function(e) { } );
+      window.addEventListener('touchstart', function(e) { } );
+      window.addEventListener('touchend',   function(e) { } );
       
     },
     clear: function(){
@@ -43,6 +48,11 @@ function init(){
   yellowGamePiece = new component(75,75, "blue", 10, 200);
   
   myGamePiece = new component(10,140, 'rgba(0, 0, 255, 0.5)', 2, 2); /* x, y */
+  
+  btnUp = new component(30,30,'blue',50,10);
+  btnDown = new component(30,30,'blue',50,70);
+  btnLeft = new component(30,30,'blue',20,40);
+  btnRight = new component(30,30,'blue',80,40);
 };
 
 function component(width, height, color, x, y){
@@ -57,6 +67,9 @@ function component(width, height, color, x, y){
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   };
+  this.clicked = function(){
+    
+  };
   this.newPos = function(){
     this.x += this.speedX;
     this.y += this.speedY;
@@ -68,9 +81,10 @@ function updateGameArea(){
   // myGamePiece.x += 1;
   //keyoardCtrl();
   //mouseCtrl();
-  touchCtrl();
+  //touchCtrl();
+  canvasCtrl();
   
-  myGamePiece.newPos();
+  //myGamePiece.newPos();
   myGamePiece.update();
   
   
@@ -119,4 +133,8 @@ function touchCtrl(){
   var y = myGameArea.y2;
   
   if(x && y) myGamePiece.x = x; myGamePiece.y = y;
+}
+
+function canvasCtrl(){
+  
 }
