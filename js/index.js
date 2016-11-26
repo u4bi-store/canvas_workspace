@@ -35,7 +35,7 @@ function component(width, height, color, x, y){
 }
 
 function updateGameArea(){
-  myGameArea.clear();
+  myGameArea.clear(); /* 지우고 다시 그리고하기 때문에 만약 clear을 주석처리하면 지나온 흔적을 남겨면서 그려짐*/
   myGamePiece.x += 1;
   myGamePiece.update();
 }
