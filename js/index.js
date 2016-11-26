@@ -6,6 +6,8 @@ var btnUp, btnDown, btnLeft, btnRight;
 
 var myObstacles = [];
 
+var myScore;
+
 var myGameArea = {
   canvas : document.createElement("canvas"),
     start: function(){
@@ -71,9 +73,12 @@ function init(){
   btnDown = new component(30,30,'blue',50,70);
   btnLeft = new component(30,30,'blue',20,40);
   btnRight = new component(30,30,'blue',80,40);
+  
+  myScore = new component('30px', 'Consolas', 'black', 280, 40, 'text');
 };
 
-function component(width, height, color, x, y){
+function component(width, height, color, x, y, type){
+  this.type = type;
   this.width = width;
   this.height = height;
   this.speedX = 0;
@@ -82,8 +87,14 @@ function component(width, height, color, x, y){
   this.y = y;
   this.update = function(){
     var ctx = myGameArea.context;
-    ctx.fillStyle = color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    if(this.type == 'text'){
+      ctx.font = this.width + ' ' + this.height;
+      ctx.fillStyle = color;
+      ctx.fillText(this.text, this.x, this.y);
+    }else{
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);  
+    }
   };
   this.clicked = function(){
     var left = this.x;
@@ -150,6 +161,9 @@ function updateGameArea(){
   myGameArea.frameNo += 1;
   pushObstacle();
   updateObstacle();
+  
+  myScore.text='스코어: '+myGameArea.frameNo;
+  myScore.update();
 }
 /* move type
    @ type : up 0/down 1/left 2/right 3/
@@ -222,7 +236,7 @@ function pushObstacle(){
   var x, minH, maxH, height;
   var minGap, maxGap, gap;
   
-  var no = myGameArea.frameNo += 1;
+  var no = myGameArea.frameNo;
   
   if( no == 1 || everyinterval(150)){
     x = myGameArea.canvas.width;
