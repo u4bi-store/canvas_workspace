@@ -219,13 +219,24 @@ function everyinterval(n){
 }
 
 function pushObstacle(){
-  var x, y;
+  var x, minH, maxH, height;
+  var minGap, maxGap, gap;
+  
   var no = myGameArea.frameNo += 1;
   
   if( no == 1 || everyinterval(150)){
     x = myGameArea.canvas.width;
-    y = myGameArea.canvas.height - 200;
-    myObstacles.push(new component(10,200, 'green', x, y));
+    minH = 20;
+    maxH = 200;
+    
+    height = Math.floor(Math.random()*(maxH-minH+1) + minH);
+    minGap = 50;
+    maxGap = 200;
+    
+    gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+    myObstacles.push(new component(10, height, 'green', x, 0));
+    
+    myObstacles.push(new component(10, x - height - gap, 'green', x,  height+gap));
   }
 }
 
