@@ -9,6 +9,7 @@ var myObstacles = [];
 var myScore;
 var myBackground;
 var mySound;
+var myMusic;
 
 var myGameArea = {
   canvas : document.createElement("canvas"),
@@ -79,6 +80,9 @@ function init(){
   myScore = new component('30px', 'Consolas', 'black', 280, 40, 'text');
   myBackground = new component(480, 270, 'images/background.png', 0, 0, 'background');
   mySound = new sound('lib/bounce.mp3');
+  myMusic = new sound('lib/background.mp3');
+  
+  myMusic.play();
 };
 
 function component(width, height, color, x, y, type){
