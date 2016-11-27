@@ -1,9 +1,9 @@
 /*dev1_index js*/
 function startGame() {
-  myGameArea.start();
+  area.start();
 }
 
-var myGameArea = {
+var area = {
   canvas : document.createElement("canvas"),
   start : function() {
     this.canvas.width = 600;
