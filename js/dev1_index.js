@@ -9,10 +9,9 @@ var music;
 
 function startGame() {
   area.start();
-  player = new component(30,30, 'images/smiley.gif', 2, 120, 'image');
+  player = new component(30,30, 'images/smiley.gif', 80, 120, 'image');
   score = new component('30px', 'Consolas', '#fff', 280, 40, 'text');
   background = new component(600, 360, 'images/background.png', 0, 0, 'background');
-  
   fail = new sound('lib/bounce.mp3');
   music = new sound('lib/background.mp3');
   music.play();
@@ -26,8 +25,19 @@ var area = {
     this.context = this.canvas.getContext('2d');
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.renderTick = 0;
-    
     this.rennder = setInterval(update, 20);
+    window.addEventListener('mousedown', function(e){
+      area.clicked = true;
+    });
+    window.addEventListener('mouseup', function(e){
+      area.clicked = false;
+    });
+    window.addEventListener('touchstart', function(e){
+      area.clicked = true;  
+    });
+    window.addEventListener('touchend', function(e){
+      area.clicked = false;
+    });
   },
   clear : function(){
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -47,7 +57,7 @@ function component(width, height, color, x, y, type){
   this.height = height;
   this.speedX = 0;
   this.speedY = 0;
-  this.gravity = 0.05;
+  this.gravity = 0;
   this.gravitySpeed = 0;
   this.x = x;
   this.y = y;
@@ -94,6 +104,7 @@ function component(width, height, color, x, y, type){
     var top = this.y;
     var bottom = this.y + (this.height);
     
+    if(!obj) obj=area;
     var obj_left = obj.x;
     var obj_right = obj.x + (obj.width);
     var obj_top = obj.y;
@@ -110,8 +121,9 @@ function update(){
     area.stop();
     fail.play();
   }else{
+    ctrl();
     area.clear();
-  
+    
     background.update();
     background.newPos();
     movingBackground();
@@ -191,6 +203,12 @@ function sound(src) {
     };
 }
 
-function accelerate(n) {
-    player.gravity = n;
+function ctrl(){
+  if(area.clicked){
+    player.image.src = 'images/angry.gif';
+    player.gravity = -0.2;
+  }else{
+    player.image.src = 'images/smiley.gif';
+    player.gravity = 0.1;
+  }
 }
