@@ -2,10 +2,12 @@
 
 var player;
 var walls = [];
+var score;
 
 function startGame() {
   area.start();
   player = new component(50,30, 'red', 2, 120);
+  score = new component('30px', 'Consolas', 'black', 280, 40, 'text');
 }
 
 var area = {
@@ -27,7 +29,8 @@ var area = {
   }
 };
 
-function component(width, height, color, x, y){
+function component(width, height, color, x, y, type){
+  this.type = type;
   this.width = width;
   this.height = height;
   this.speedX = 0;
@@ -37,6 +40,16 @@ function component(width, height, color, x, y){
   
   this.update = function(){
     var ctx = area.context;
+    if(this.type == 'text'){
+      var size = this.width;
+      var name = this.height; 
+      ctx.font = size + ' ' + name;
+      ctx.fillStyle = color;
+      ctx.fillText(this.text, this.x, this.y);
+    }else{
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height); 
   };
@@ -65,14 +78,17 @@ function update(){
   if(isHit()){
     area.stop();
   }else{
-  area.clear();
+    area.clear();
 
-  player.update();
-  player.newPos();
-  
-  area.renderTick += 1;
-  pushWall();
-  updateWalls();
+    player.update();
+    player.newPos();
+
+    area.renderTick += 1;
+    pushWall();
+    updateWalls();
+
+    score.text = '스코어 : '+area.renderTick;
+    score.update();
   }
 }
 
