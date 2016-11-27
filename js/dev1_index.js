@@ -3,11 +3,13 @@
 var player;
 var walls = [];
 var score;
+var background;
 
 function startGame() {
   area.start();
   player = new component(30,30, 'images/smiley.gif', 2, 120, 'image');
-  score = new component('30px', 'Consolas', 'black', 280, 40, 'text');
+  score = new component('30px', 'Consolas', '#fff', 280, 40, 'text');
+  background = new component(600, 360, 'images/background.png', 0, 0, 'background');
 }
 
 var area = {
@@ -31,7 +33,7 @@ var area = {
 
 function component(width, height, color, x, y, type){
   this.type = type;
-  if(type == 'image'){
+  if(type == 'image' || type == 'background'){
     this.image = new Image();
     this.image.src = color;
   }
@@ -44,8 +46,12 @@ function component(width, height, color, x, y, type){
   
   this.update = function(){
     var ctx = area.context;
-    if(this.type == 'image'){
+    if(this.type == 'image' || this.type == 'background'){
       ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      
+      if(this.type == 'background'){
+        ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
+      }
     }else if(this.type == 'text'){
       var size = this.width;
       var name = this.height; 
@@ -58,8 +64,13 @@ function component(width, height, color, x, y, type){
     }
   };
   this.newPos = function() {
-      this.x += this.speedX;
-      this.y += this.speedY;        
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.type == 'background'){
+      if(this.x == -(this.width)){
+        this.x = 0;
+      }
+    }
   };
   this.crashWith = function(obj){
     var left = this.x;
@@ -83,7 +94,11 @@ function update(){
     area.stop();
   }else{
     area.clear();
-
+  
+    background.update();
+    background.newPos();
+    movingBackground();
+    
     player.update();
     player.newPos();
 
@@ -136,4 +151,8 @@ function everyRenderVal(n){
 
 function movingWall(num){
   walls[num].x += -1;
+}
+
+function movingBackground(){
+  background.speedX = -1;
 }
