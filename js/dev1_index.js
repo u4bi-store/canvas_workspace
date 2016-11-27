@@ -47,6 +47,8 @@ function component(width, height, color, x, y, type){
   this.height = height;
   this.speedX = 0;
   this.speedY = 0;
+  this.gravity = 0.05;
+  this.gravitySpeed = 0;
   this.x = x;
   this.y = y;
   
@@ -71,11 +73,12 @@ function component(width, height, color, x, y, type){
   };
   this.newPos = function() {
     this.x += this.speedX;
-    this.y += this.speedY;
     if(this.type == 'background'){
-      if(this.x == -(this.width)){
-        this.x = 0;
-      }
+      if(this.x == -(this.width)) this.x = 0;
+      this.y += this.speedY;
+    }else{
+      this.gravitySpeed += this.gravity;
+      this.y += this.speedY + this.gravitySpeed;
     }
   };
   this.crashWith = function(obj){
