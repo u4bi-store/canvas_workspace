@@ -79,7 +79,14 @@ function component(width, height, color, x, y, type){
     }else{
       this.gravitySpeed += this.gravity;
       this.y += this.speedY + this.gravitySpeed;
+      this.hitEdge();
     }
+  };
+  this.hitEdge = function(){
+    var top = 0;
+    var bottom = area.canvas.height - this.height;
+    if(this.y < top)this.y = top;
+    if(this.y > bottom)this.y = bottom;
   };
   this.crashWith = function(obj){
     var left = this.x;
