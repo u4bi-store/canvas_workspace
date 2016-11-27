@@ -1,7 +1,6 @@
 /*dev1_index js*/
 
 var player;
-var object;
 var walls = [];
 
 function startGame() {
