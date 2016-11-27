@@ -14,6 +14,11 @@ var area = {
     this.canvas.height = 360;
     this.context = this.canvas.getContext('2d');
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    
+    this.rennder = setInterval(update, 20);
+  },
+  clear : function(){
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 };
 
@@ -23,7 +28,14 @@ function component(width, height, color, x, y){
   this.x = x;
   this.y = y;
   
-  var ctx = area.context;
-  ctx.fillStyle = color;
-  ctx.fillRect(this.x, this.y, this.width, this.height);
+  this.update = function(){
+    var ctx = area.context;
+    ctx.fillStyle = color;
+    ctx.fillRect(this.x, this.y, this.width, this.height); 
+  };
+}
+
+function update(){
+  area.clear();
+  player.update();
 }
