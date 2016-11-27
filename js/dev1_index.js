@@ -2,16 +2,30 @@
 
 var player;
 var walls = [];
-var score;
+var score =[];
 var background;
 var fail;
 var music;
+var intro = [];
+
+var rank = [];
 
 function startGame() {
   area.start();
   player = new component(30,30, 'images/smiley.gif', 80, 120, 'image');
-  score = new component('30px', 'Consolas', '#fff', 280, 40, 'text');
+  score[0] = new component('30px', 'Consolas', '#fff', 20, 40, 'text');
+  score[1] = new component('15px', 'Consolas', '#fff', 20, 65, 'text');
   background = new component(600, 360, 'images/background.png', 0, 0, 'background');
+  intro[0] = new component(600, 360, 'rgba(0,0,0,0.0)', 0, 0);
+  intro[1] = new component('50px', 'Consolas', '#fff', 200, 180, 'text');
+  intro[2] = new component('30px', 'Consolas', '#fff', 150, 300, 'text');
+  intro[3] = new component('30px', 'Consolas', '#fff', 350, 300, 'text');
+  intro[4] = new component('15px', 'Consolas', '#fff', 470, 40, 'text');
+  
+  for(i = 0; i<10; i++){
+    rank[i] = new component('7px', 'Consolas', 'rgba(255, 215, 0, 0.6)', 500, 20+(20*i), 'text');
+  }
+  
   fail = new sound('lib/bounce.mp3');
   music = new sound('lib/background.mp3');
   music.play();
@@ -25,7 +39,7 @@ var area = {
     this.context = this.canvas.getContext('2d');
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.renderTick = 0;
-    this.rennder = setInterval(update, 20);
+    this.rennder = setInterval(render, 20);
     window.addEventListener('mousedown', function(e){
       area.clicked = true;
     });
@@ -55,6 +69,7 @@ function component(width, height, color, x, y, type){
   }
   this.width = width;
   this.height = height;
+  this.color = color;
   this.speedX = 0;
   this.speedY = 0;
   this.gravity = 0;
@@ -74,10 +89,11 @@ function component(width, height, color, x, y, type){
       var size = this.width;
       var name = this.height; 
       ctx.font = size + ' ' + name;
-      ctx.fillStyle = color;
+      ctx.fillStyle = this.color;
       ctx.fillText(this.text, this.x, this.y);
+      ctx.fillRect(this.x, this.y, this.width, 'red');
     }else{
-      ctx.fillStyle = color;
+      ctx.fillStyle = this.color;
       ctx.fillRect(this.x, this.y, this.width, this.height);
     }
   };
@@ -116,13 +132,12 @@ function component(width, height, color, x, y, type){
   };
 }
 
-function update(){
+function render(){
   if(isHit()){
-    area.stop();
-    fail.play();
+    dead();
   }else{
-    ctrl();
     area.clear();
+    ctrl();
     
     background.update();
     background.newPos();
@@ -134,9 +149,17 @@ function update(){
     area.renderTick += 1;
     pushWall();
     updateWalls();
+  
+    score[0].text = '거리 : '+area.renderTick+'m';
+    score[0].update();
+    score[1].text = '최고기록 : '+'5000점';
+    score[1].update();
 
-    score.text = '스코어 : '+area.renderTick;
-    score.update();
+    for(i = 0; i<10; i++){
+      var num = (i+1);
+      rank[i].text = (num)+'위 : 홍길동 - '+num+'0000점';
+      rank[i].update();
+    }
   }
 }
 
@@ -163,9 +186,9 @@ function pushWall(){
     maxGap = 200;
     
     gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-    walls.push(new component(10, height, 'green', x, 0));
+    walls.push(new component(10, height, '#fff', x, 0));
     
-    walls.push(new component(10, x - height - gap, 'green', x,  height+gap));
+    walls.push(new component(10, x - height - gap, '#fff', x,  height+gap));
   }
 }
 
@@ -211,4 +234,21 @@ function ctrl(){
     player.image.src = 'images/smiley.gif';
     player.gravity = 0.1;
   }
+}
+
+function dead(){
+  area.stop();
+  fail.play();
+  intro[0].color = 'rgba(0,0,0,0.6)';
+  intro[0].update();
+  intro[1].text = '아! 아깝다!';
+  intro[1].update();
+  intro[2].text = '다시할래?';
+  intro[2].update();
+  intro[3].text = '순위보기';
+  intro[3].update();
+  intro[4].text = '페이스북 공유하기';
+  intro[4].update();
+  score[0].update();
+  score[1].update();
 }
