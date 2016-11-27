@@ -6,7 +6,7 @@ var score;
 
 function startGame() {
   area.start();
-  player = new component(50,30, 'red', 2, 120);
+  player = new component(30,30, 'images/smiley.gif', 2, 120, 'image');
   score = new component('30px', 'Consolas', 'black', 280, 40, 'text');
 }
 
@@ -31,6 +31,10 @@ var area = {
 
 function component(width, height, color, x, y, type){
   this.type = type;
+  if(type == 'image'){
+    this.image = new Image();
+    this.image.src = color;
+  }
   this.width = width;
   this.height = height;
   this.speedX = 0;
@@ -40,7 +44,9 @@ function component(width, height, color, x, y, type){
   
   this.update = function(){
     var ctx = area.context;
-    if(this.type == 'text'){
+    if(this.type == 'image'){
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    }else if(this.type == 'text'){
       var size = this.width;
       var name = this.height; 
       ctx.font = size + ' ' + name;
@@ -50,8 +56,6 @@ function component(width, height, color, x, y, type){
       ctx.fillStyle = color;
       ctx.fillRect(this.x, this.y, this.width, this.height);
     }
-    ctx.fillStyle = color;
-    ctx.fillRect(this.x, this.y, this.width, this.height); 
   };
   this.newPos = function() {
       this.x += this.speedX;
