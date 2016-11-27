@@ -85,8 +85,8 @@ function component(width, height, color, x, y, type){
   this.hitEdge = function(){
     var top = 0;
     var bottom = area.canvas.height - this.height;
-    if(this.y < top)this.y = top;
-    if(this.y > bottom)this.y = bottom;
+    var result;
+    if(this.y < top || this.y > bottom) return result = true;
   };
   this.crashWith = function(obj){
     var left = this.x;
@@ -129,6 +129,8 @@ function update(){
 }
 
 function isHit(){
+  if(player.hitEdge()) return true;
+  
   for(i = 0; i<walls.length; i++){
     if(player.crashWith(walls[i]))return true;
   }
@@ -187,4 +189,8 @@ function sound(src) {
     this.stop = function(){
         this.sound.pause();
     };
+}
+
+function accelerate(n) {
+    player.gravity = n;
 }
