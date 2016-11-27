@@ -4,12 +4,18 @@ var player;
 var walls = [];
 var score;
 var background;
+var fail;
+var music;
 
 function startGame() {
   area.start();
   player = new component(30,30, 'images/smiley.gif', 2, 120, 'image');
   score = new component('30px', 'Consolas', '#fff', 280, 40, 'text');
   background = new component(600, 360, 'images/background.png', 0, 0, 'background');
+  
+  fail = new sound('lib/bounce.mp3');
+  music = new sound('lib/background.mp3');
+  music.play();
 }
 
 var area = {
@@ -92,6 +98,7 @@ function component(width, height, color, x, y, type){
 function update(){
   if(isHit()){
     area.stop();
+    fail.play();
   }else{
     area.clear();
   
@@ -155,4 +162,19 @@ function movingWall(num){
 
 function movingBackground(){
   background.speedX = -1;
+}
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    };
+    this.stop = function(){
+        this.sound.pause();
+    };
 }
