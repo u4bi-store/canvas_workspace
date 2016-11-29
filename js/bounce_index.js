@@ -34,7 +34,7 @@ function component(width, height, color, x, y, type) {
     this.speedY = 0;    
     this.gravity = 0.1;
     this.gravitySpeed = 0;
-    this.bounce = 0.5;
+    this.bounce = 0.7;
     this.update = function() {
         ctx = myGameArea.context;
         ctx.fillStyle = color;
@@ -54,10 +54,18 @@ function component(width, height, color, x, y, type) {
           /* gravitySpeed - (gravitySpeed * bounce)*/
         }
     };
+    this.restart = function(){
+      this.x = 80;
+      this.y = 75;
+    };
 }
 
 function updateGameArea() {
     myGameArea.clear();
     myGamePiece.newPos();
     myGamePiece.update();
+}
+
+function restart(){
+  myGamePiece.restart();
 }
