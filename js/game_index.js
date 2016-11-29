@@ -34,7 +34,12 @@ function draw(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
   drawBall();
   
-  if(y + dy < 0 || y + dy > canvas.height) dy = -dy; /* 코드 병합 두가지 조건중 하나일 시 반전*/
+  var ydy = y+dy;
+  var xdx = x+dx;
+  
+  if(ydy < 0 || ydy > canvas.height) dy = -dy; /* 코드 병합 두가지 조건중 하나일 시 반전*/
+  
+  if(xdx < 0 || xdx > canvas.width) dx = -dx; /* left and right bouncing */
   
   x += dx;
   y += dy;
