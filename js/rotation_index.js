@@ -31,7 +31,8 @@ function component(width, height, color, x, y) {
     this.height = height;
     this.angle = 0;
     this.x = x;
-    this.y = y;    
+    this.y = y;
+    this.rotateSpeed = 1; 
     this.update = function() {
         ctx = myGameArea.context;
         ctx.save(); /* 현재 캔버스의 context 객체를 저장함*/
@@ -46,6 +47,11 @@ function component(width, height, color, x, y) {
 
 function updateGameArea() {
     myGameArea.clear();
-    myGamePiece.angle += 1 * Math.PI / 180; /* angle +=1 * 파이/180*/ 
+    myGamePiece.angle += myGamePiece.rotateSpeed * Math.PI / 180;
+    /* angle +=1 * 파이/180*/ 
     myGamePiece.update();
+}
+
+function speed(){
+  myGamePiece.rotateSpeed++;
 }
