@@ -80,11 +80,19 @@ function draw(){
   if(xdx < ballRadius || xdx > canvas.width-ballRadius) dx = -dx; /* left and right bouncing */
   /*ballRadius만큼 빼줌으로써 벽안으로 눌러 들어가는 것을 방지해줌*/
   
-  if(ydy < ballRadius)dy = -dy;
+  if(ydy < ballRadius) dy = -dy;
   else if(ydy > canvas.height-ballRadius){
     /* (canvas 세로값-공의지름) 보다 클때, 즉 캔버스 화면 하단밖으로 나갔을 경우에*/
-    alert('game over');
-    document.location.reload();
+    if(x > paddleX && x < paddleX + paddleWidth) dy = -dy;
+    /* canvas.width/2는 paddleX보다 크고 paddleX+paddleWidth보다 작아야 반전 아니면 게임오버
+    
+      왼쪽 누르면 paddleX -7씩 감소 오른쪽 키 누르면 paddleX +7씩 증가
+      웹 해상도 화면은 0부터 시작 왼쪽에서부터 가로(x)값이 커진다.
+    */
+    else{
+      alert('game over');
+      document.location.reload();
+    }
   }
   
   if(rightPressed && paddleX < canvas.width-paddleWidth) {
