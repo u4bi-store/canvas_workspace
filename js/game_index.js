@@ -33,6 +33,9 @@ function drawBall(){
 function draw(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
   drawBall();
+  
+  if(y + dy < 0) dy = -dy; /* 볼의 y위치에 값이 0보다 작은 경우 반전*/
+  
   x += dx;
   y += dy;
 }
