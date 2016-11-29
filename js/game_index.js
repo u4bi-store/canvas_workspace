@@ -34,8 +34,8 @@ function init(){
   document.addEventListener('keydown', keyDownHandler, false);
   document.addEventListener('keyup', keyUpHandler, false);
   
-  brickRowCount = 3;
-  brickColumnCount = 13;
+  brickRowCount = 1;
+  brickColumnCount = 1;
   brickWidth = canvas.width/20;
   brickHeight = canvas.height/20;
   brickPadding = 5;
@@ -93,6 +93,10 @@ function collisionDetection(){
           dy = -dy;
           b.status = 0;
           score++;
+          if(score == brickRowCount * brickColumnCount){
+            alert('game win');
+            document.location.reload();
+          }
         }
       }
       
