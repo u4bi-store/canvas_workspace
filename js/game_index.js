@@ -6,6 +6,8 @@ var dx, dy;
 var ballRadius;
 var paddleHeight, paddleWidth, paddleX;
 var rightPressed, leftPressed;
+var brickRowCount, brickColumnCount, brickWidth, brickHeight, brickPadding, brickOffsetTop, brickOffsetLeft;
+var bricks = [];
 
 function init(){
   canvas = document.getElementById('myCanvas');
@@ -30,6 +32,21 @@ function init(){
   
   document.addEventListener('keydown', keyDownHandler, false);
   document.addEventListener('keyup', keyUpHandler, false);
+  
+  brickRowCount = 3;
+  brickColumnCount = 5;
+  brickWidth = 75;
+  brickHeight = 20;
+  brickPadding = 10;
+  brickOffsetTop = 30;
+  brickOffsetLeft = 30;
+  
+  for(i=0; i<brickColumnCount; i++){
+    bricks[i] =[];
+    for(j=0; j<brickRowCount; j++){
+      bricks[i][j] = {x: 0, y: 0};
+    }
+  }
   
   setInterval(draw, 10);
 }
