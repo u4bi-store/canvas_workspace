@@ -70,7 +70,14 @@ function collisionDetection(){
   for(i=0; i<brickColumnCount; i++){
     for(j=0; j<brickRowCount; j++){
       var b = bricks[i][j];
-      if(x > b.x && x< b.x+brickWidth && y > b.y && y < b.y+brickWidth) dy = -dy;
+      if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickWidth) dy = -dy;
+      /*  x는 b.x값 보다  크고
+          b.x+brickWidth 보다 작음
+          
+          y도 동일한 구조
+          
+          일 때 dy = -dy 반전
+      */
       
     }
   }
