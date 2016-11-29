@@ -53,7 +53,8 @@ function init(){
   score = 0;
   lives = 3;
   
-  setInterval(draw, 10);
+  // setInterval(draw, 10);
+  draw();
 }
 
 function mouseMoveHandler(e){
@@ -207,4 +208,5 @@ function draw(){
   
   x += dx;
   y += dy;
+  requestAnimationFrame(draw);
 }
