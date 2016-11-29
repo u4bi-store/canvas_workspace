@@ -30,14 +30,24 @@ function component(width, height, color, x, y, type) {
     this.height = height;
     this.x = x;
     this.y = y;    
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.gravity = 0.1;
+    this.gravitySpeed = 0;
     this.update = function() {
         ctx = myGameArea.context;
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     };
+    this.newPos = function() {
+        this.gravitySpeed += this.gravity;
+        this.x += this.speedX;
+        this.y += this.speedY + this.gravitySpeed;
+    };
 }
 
 function updateGameArea() {
     myGameArea.clear();
+    myGamePiece.newPos();
     myGamePiece.update();
 }
