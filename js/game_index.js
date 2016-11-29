@@ -33,9 +33,10 @@ function init(){
   
   document.addEventListener('keydown', keyDownHandler, false);
   document.addEventListener('keyup', keyUpHandler, false);
+  document.addEventListener('mousemove', mouseMoveHandler, false);
   
-  brickRowCount = 1;
-  brickColumnCount = 1;
+  brickRowCount = 3;
+  brickColumnCount = 10;
   brickWidth = canvas.width/20;
   brickHeight = canvas.height/20;
   brickPadding = 5;
@@ -52,6 +53,11 @@ function init(){
   score = 0;
   
   setInterval(draw, 10);
+}
+
+function mouseMoveHandler(e){
+  var relativeX = e.clientX - canvas.offsetLeft;
+  if(relativeX > 0 && relativeX < canvas.width) paddleX = relativeX - paddleWidth/2;
 }
 
 function keyDownHandler(e){
