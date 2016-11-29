@@ -8,6 +8,7 @@ var paddleHeight, paddleWidth, paddleX;
 var rightPressed, leftPressed;
 var brickRowCount, brickColumnCount, brickWidth, brickHeight, brickPadding, brickOffsetTop, brickOffsetLeft;
 var bricks = [];
+var score;
 
 function init(){
   canvas = document.getElementById('myCanvas');
@@ -48,6 +49,8 @@ function init(){
     }
   }
   
+  score = 0;
+  
   setInterval(draw, 10);
 }
 
@@ -66,6 +69,13 @@ function keyUpHandler(e){
   }
 }
 
+function drawScore(){
+  ctx.font = '0.01rem Consolas';
+  ctx.fillStyle = '#0095DD';
+  ctx.fillText('점수 : '+score, 0,9);
+  
+}
+
 function collisionDetection(){
   for(i=0; i<brickColumnCount; i++){
     for(j=0; j<brickRowCount; j++){
@@ -82,6 +92,7 @@ function collisionDetection(){
         */
           dy = -dy;
           b.status = 0;
+          score++;
         }
       }
       
@@ -134,6 +145,7 @@ function draw(){
   drawBricks();
   drawBall();
   drawPaddle();
+  drawScore();
   collisionDetection();
   
   var ydy = y+dy;
