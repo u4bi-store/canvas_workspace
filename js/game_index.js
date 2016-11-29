@@ -19,7 +19,7 @@ function init(){
   dx = 2;
   dy = -2;
   
-  ballRadius = 15; //반지름
+  ballRadius = 5; //반지름
   
   paddleHeight = 10;
   paddleWidth = 75;
@@ -34,10 +34,10 @@ function init(){
   document.addEventListener('keyup', keyUpHandler, false);
   
   brickRowCount = 3;
-  brickColumnCount = 5;
-  brickWidth = canvas.width/10;
-  brickHeight = canvas.height/10;
-  brickPadding = 10;
+  brickColumnCount = 13;
+  brickWidth = canvas.width/20;
+  brickHeight = canvas.height/20;
+  brickPadding = 5;
   brickOffsetTop = 10;
   brickOffsetLeft = 20;
   
