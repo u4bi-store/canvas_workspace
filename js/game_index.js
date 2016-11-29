@@ -34,8 +34,7 @@ function draw(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
   drawBall();
   
-  if(y + dy < 0) dy = -dy; /* 볼의 y위치에 값이 0보다 작은 경우 반전*/
-  if(y + dy > canvas.height) dy = -dy; /* canvas.height 높이보다 크면 반전 */
+  if(y + dy < 0 || y + dy > canvas.height) dy = -dy; /* 코드 병합 두가지 조건중 하나일 시 반전*/
   
   x += dx;
   y += dy;
