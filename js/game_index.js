@@ -22,6 +22,8 @@ function init(){
   paddleHeight = 10;
   paddleWidth = 75;
   paddleX = (canvas.width-paddleWidth)/2;
+  /* (canvas 가로값 - paddle 가로값) 나누기 2
+     paddle이 갈수 있는 limit값을 정하기 위함 */
   
   rightPressed = false;
   leftPressed = false;
@@ -81,9 +83,11 @@ function draw(){
   
   /*ballRadius만큼 빼줌으로써 벽안으로 눌러 들어가는 것을 방지해줌*/
   
-  if(rightPressed) {
+  
+  if(rightPressed && paddleX < canvas.width-paddleWidth) {
+    /* paddleX보다 canvas.width - paddleWidth가 높을때 */
     paddleX += 7;
-  }else if(leftPressed) {
+  }else if(leftPressed && paddleX > 0) {
     paddleX -= 7;
   }
   
