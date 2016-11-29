@@ -70,14 +70,20 @@ function collisionDetection(){
   for(i=0; i<brickColumnCount; i++){
     for(j=0; j<brickRowCount; j++){
       var b = bricks[i][j];
-      if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickWidth) dy = -dy;
-      /*  x는 b.x값 보다  크고
-          b.x+brickWidth 보다 작음
-          
-          y도 동일한 구조
-          
-          일 때 dy = -dy 반전
-      */
+      
+      if(b.status == 1){
+        if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickWidth){
+        /*  x는 b.x값 보다  크고
+            b.x+brickWidth 보다 작음
+
+            y도 동일한 구조
+
+            일 때 dy = -dy 반전
+        */
+          dy = -dy;
+          b.status = 0;
+        }
+      }
       
     }
   }
@@ -128,6 +134,7 @@ function draw(){
   drawBricks();
   drawBall();
   drawPaddle();
+  collisionDetection();
   
   var ydy = y+dy;
   var xdx = x+dx;
