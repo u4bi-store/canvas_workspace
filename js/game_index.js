@@ -37,9 +37,11 @@ function draw(){
   var ydy = y+dy;
   var xdx = x+dx;
   
-  if(ydy < 0 || ydy > canvas.height) dy = -dy; /* 코드 병합 두가지 조건중 하나일 시 반전*/
+  if(ydy < ballRadius || ydy > canvas.height-ballRadius) dy = -dy; /* 코드 병합 두가지 조건중 하나일 시 반전*/
   
-  if(xdx < 0 || xdx > canvas.width) dx = -dx; /* left and right bouncing */
+  if(xdx < ballRadius || xdx > canvas.width-ballRadius) dx = -dx; /* left and right bouncing */
+  
+  /*ballRadius만큼 빼줌으로써 벽안으로 눌러 들어가는 것을 방지해줌*/
   
   x += dx;
   y += dy;
