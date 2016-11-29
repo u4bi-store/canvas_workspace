@@ -80,7 +80,13 @@ function draw(){
   if(xdx < ballRadius || xdx > canvas.width-ballRadius) dx = -dx; /* left and right bouncing */
   
   /*ballRadius만큼 빼줌으로써 벽안으로 눌러 들어가는 것을 방지해줌*/
-
+  
+  if(rightPressed) {
+    paddleX += 7;
+  }else if(leftPressed) {
+    paddleX -= 7;
+  }
+  
   x += dx;
   y += dy;
 }
