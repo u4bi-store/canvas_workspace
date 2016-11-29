@@ -66,6 +66,19 @@ function keyUpHandler(e){
   }
 }
 
+function drawBricks(){
+  for(i=0; i<brickColumnCount; i++){
+    for(j=0; j<brickRowCount; j++){
+      bricks[i][j].x =0;
+      bricks[i][j].y =0;
+      ctx.beginPath();
+      ctx.fillStyle = '#0095DD';
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+}
+
 function drawPaddle(){
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
