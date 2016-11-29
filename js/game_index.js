@@ -4,6 +4,7 @@ var canvas,ctx;
 var x, y;
 var dx, dy;
 var ballRadius;
+var paddleHeight, paddleWidth, paddleX;
 
 function init(){
   canvas = document.getElementById('myCanvas');
@@ -17,7 +18,21 @@ function init(){
   
   ballRadius = 15; //반지름
   
+  paddleHeight = 10;
+  paddleWidth = 75;
+  paddleX = (canvas.width-paddleWidth)/2;
+  
   setInterval(draw, 10);
+}
+
+function drawPaddle(){
+  ctx.beginPath();
+  ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+  /* rect(x, y, width, height)  윤곽선만 있는 사각형을 그림 */
+  ctx.fillStyle = '#0095DD';
+  ctx.fill();
+  ctx.closePath();
+  
 }
 
 function drawBall(){
@@ -33,6 +48,7 @@ function drawBall(){
 function draw(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
   drawBall();
+  drawPaddle();
   
   var ydy = y+dy;
   var xdx = x+dx;
