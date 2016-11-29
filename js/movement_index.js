@@ -33,6 +33,7 @@ function component(width, height, color, x, y, type) {
     this.height = height;
     this.speed = 1;
     this.angle = 0;
+    this.moveAngle = 1;
     this.x = x;
     this.y = y;    
     this.update = function() {
@@ -45,6 +46,7 @@ function component(width, height, color, x, y, type) {
         ctx.restore();
     };
     this.newPos = function() {
+        this.angle += this.moveAngle * Math.PI / 180;
         this.x += this.speed * Math.sin(this.angle);
         this.y -= this.speed * Math.cos(this.angle);
     };
