@@ -77,12 +77,15 @@ function draw(){
   var ydy = y+dy;
   var xdx = x+dx;
   
-  if(ydy < ballRadius || ydy > canvas.height-ballRadius) dy = -dy; /* 코드 병합 두가지 조건중 하나일 시 반전*/
-  
   if(xdx < ballRadius || xdx > canvas.width-ballRadius) dx = -dx; /* left and right bouncing */
-  
   /*ballRadius만큼 빼줌으로써 벽안으로 눌러 들어가는 것을 방지해줌*/
   
+  if(ydy < ballRadius)dy = -dy;
+  else if(ydy > canvas.height-ballRadius){
+    /* (canvas 세로값-공의지름) 보다 클때, 즉 캔버스 화면 하단밖으로 나갔을 경우에*/
+    alert('game over');
+    document.location.reload();
+  }
   
   if(rightPressed && paddleX < canvas.width-paddleWidth) {
     /* paddleX보다 canvas.width - paddleWidth가 높을때 */
