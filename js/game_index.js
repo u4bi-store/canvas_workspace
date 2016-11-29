@@ -5,6 +5,7 @@ var x, y;
 var dx, dy;
 var ballRadius;
 var paddleHeight, paddleWidth, paddleX;
+var rightPressed, leftPressed;
 
 function init(){
   canvas = document.getElementById('myCanvas');
@@ -22,7 +23,28 @@ function init(){
   paddleWidth = 75;
   paddleX = (canvas.width-paddleWidth)/2;
   
+  rightPressed = false;
+  leftPressed = false;
+  
+  document.addEventListener('keydown', keyDownHandler, false);
+  document.addEventListener('keyup', keyUpHandler, false);
+  
   setInterval(draw, 10);
+}
+
+function keyDownHandler(e){
+  switch(e.keyCode){
+    case 39: rightPressed = true; break;
+    case 37: leftPressed = true; break;
+    default: break;
+  }
+}
+function keyUpHandler(e){
+  switch(e.keyCode){
+    case 39: rightPressed = false; break;
+    case 37: leftPressed = false; break;
+    default: break;
+  }
 }
 
 function drawPaddle(){
@@ -58,7 +80,7 @@ function draw(){
   if(xdx < ballRadius || xdx > canvas.width-ballRadius) dx = -dx; /* left and right bouncing */
   
   /*ballRadius만큼 빼줌으로써 벽안으로 눌러 들어가는 것을 방지해줌*/
-  
+
   x += dx;
   y += dy;
 }
