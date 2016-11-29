@@ -9,7 +9,7 @@ function init(){
   canvas = document.getElementById('myCanvas');
   ctx = canvas.getContext('2d');
   
-  x = 0;
+  x = canvas.width/2;
   y = canvas.height-30;
   
   dx = 2;
