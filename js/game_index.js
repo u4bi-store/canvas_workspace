@@ -69,8 +69,11 @@ function keyUpHandler(e){
 function drawBricks(){
   for(i=0; i<brickColumnCount; i++){
     for(j=0; j<brickRowCount; j++){
-      bricks[i][j].x =0;
-      bricks[i][j].y =0;
+      var brickX = (i* (brickWidth+brickPadding)+brickOffsetLeft);
+      var brickY = (j* (brickHeight+brickPadding)+brickOffsetTop);
+      
+      bricks[i][j].x =brickX;
+      bricks[i][j].y =brickY;
       ctx.beginPath();
       ctx.fillStyle = '#0095DD';
       ctx.fill();
@@ -101,6 +104,7 @@ function drawBall(){
 
 function draw(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
+  drawBricks();
   drawBall();
   drawPaddle();
   
