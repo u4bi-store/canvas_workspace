@@ -2,6 +2,7 @@
 
 var canvas,ctx;
 var x, y;
+var dx, dy;
 
 function init(){
   canvas = document.getElementById('myCanvas');
@@ -9,6 +10,9 @@ function init(){
   
   x = canvas.width/2;
   y = canvas.height-30;
+  
+  dx = 2;
+  dy = -2;
   
   setInterval(draw, 10);
 }
@@ -18,5 +22,7 @@ function draw(){
   ctx.arc(x, y, 10, 0, Math.PI*2);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
-  ctx.closePath();  
+  ctx.closePath();
+  x += dx;
+  y += dy;
 }
