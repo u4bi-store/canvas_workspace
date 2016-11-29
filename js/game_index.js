@@ -8,7 +8,7 @@ var paddleHeight, paddleWidth, paddleX;
 var rightPressed, leftPressed;
 var brickRowCount, brickColumnCount, brickWidth, brickHeight, brickPadding, brickOffsetTop, brickOffsetLeft;
 var bricks = [];
-var score;
+var score, lives;
 
 function init(){
   canvas = document.getElementById('myCanvas');
@@ -51,6 +51,7 @@ function init(){
   }
   
   score = 0;
+  lives = 3;
   
   setInterval(draw, 10);
 }
@@ -73,6 +74,12 @@ function keyUpHandler(e){
     case 37: leftPressed = false; break;
     default: break;
   }
+}
+
+function drawLives(){
+  ctx.font = '0.01rem Consolas';
+  ctx.fillStyle = '#0095DD';
+  ctx.fillText('생명 : '+lives, canvas.width-40, 9);
 }
 
 function drawScore(){
@@ -156,6 +163,7 @@ function draw(){
   drawBall();
   drawPaddle();
   drawScore();
+  drawLives();
   collisionDetection();
   
   var ydy = y+dy;
@@ -174,8 +182,19 @@ function draw(){
       웹 해상도 화면은 0부터 시작 왼쪽에서부터 가로(x)값이 커진다.
     */
     else{
-      alert('game over');
-      document.location.reload();
+      lives--;
+      if(!lives){
+        alert('game over');
+        document.location.reload();
+      }else{
+        x = canvas.width/2;
+        y = canvas.height-30;
+        
+        dx = 2;
+        dy = -2;
+        
+        paddleX = (canvas.width-paddleWidth)/2;
+      }
     }
   }
   
