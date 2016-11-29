@@ -17,6 +17,14 @@ var myGameArea = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
+        window.addEventListener('keydown', function (e) {
+            e.preventDefault();
+            myGameArea.keys = (myGameArea.keys || []);
+            myGameArea.keys[e.keyCode] = (e.type == "keydown");
+        });
+        window.addEventListener('keyup', function (e) {
+            myGameArea.keys[e.keyCode] = (e.type == "keydown");
+        });
     },
     stop : function() {
         clearInterval(this.interval);
@@ -31,9 +39,9 @@ function component(width, height, color, x, y, type) {
     this.type = type;
     this.width = width;
     this.height = height;
-    this.speed = 1;
+    this.speed = 0;
     this.angle = 0;
-    this.moveAngle = 1;
+    this.moveAngle = 0;
     this.x = x;
     this.y = y;    
     this.update = function() {
@@ -54,6 +62,19 @@ function component(width, height, color, x, y, type) {
 
 function updateGameArea() {
     myGameArea.clear();
+    key();
     myGamePiece.newPos();
     myGamePiece.update();
+}
+
+function key(){
+    myGamePiece.moveAngle = 0;
+    myGamePiece.speed = 0;
+    var keys = myGameArea.keys;
+    if(keys){
+        if (myGameArea.keys && myGameArea.keys[37])myGamePiece.moveAngle = -1;
+        if (myGameArea.keys && myGameArea.keys[39])myGamePiece.moveAngle = 1;
+        if (myGameArea.keys && myGameArea.keys[38])myGamePiece.speed= 1;
+        if (myGameArea.keys && myGameArea.keys[40])myGamePiece.speed= -1;
+    }
 }
