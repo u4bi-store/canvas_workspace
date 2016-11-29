@@ -35,11 +35,11 @@ function init(){
   
   brickRowCount = 3;
   brickColumnCount = 5;
-  brickWidth = 75;
-  brickHeight = 20;
+  brickWidth = canvas.width/10;
+  brickHeight = canvas.height/10;
   brickPadding = 10;
-  brickOffsetTop = 30;
-  brickOffsetLeft = 30;
+  brickOffsetTop = 10;
+  brickOffsetLeft = 20;
   
   for(i=0; i<brickColumnCount; i++){
     bricks[i] =[];
@@ -75,6 +75,7 @@ function drawBricks(){
       bricks[i][j].x =brickX;
       bricks[i][j].y =brickY;
       ctx.beginPath();
+      ctx.rect(brickX, brickY, brickWidth, brickHeight);
       ctx.fillStyle = '#0095DD';
       ctx.fill();
       ctx.closePath();
