@@ -12,6 +12,6 @@ canvas {
 }
 
 #myCanvas{
-  width: 480px;
-  height: 320px;
+  width: 100%;
+  height: 100%;
 }
