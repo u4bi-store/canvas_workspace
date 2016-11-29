@@ -44,7 +44,7 @@ function init(){
   for(i=0; i<brickColumnCount; i++){
     bricks[i] =[];
     for(j=0; j<brickRowCount; j++){
-      bricks[i][j] = {x: 0, y: 0};
+      bricks[i][j] = {x: 0, y: 0, status: 1};
     }
   }
   
@@ -86,16 +86,19 @@ function collisionDetection(){
 function drawBricks(){
   for(i=0; i<brickColumnCount; i++){
     for(j=0; j<brickRowCount; j++){
-      var brickX = (i* (brickWidth+brickPadding)+brickOffsetLeft);
-      var brickY = (j* (brickHeight+brickPadding)+brickOffsetTop);
       
-      bricks[i][j].x =brickX;
-      bricks[i][j].y =brickY;
-      ctx.beginPath();
-      ctx.rect(brickX, brickY, brickWidth, brickHeight);
-      ctx.fillStyle = '#0095DD';
-      ctx.fill();
-      ctx.closePath();
+      if(bricks[i][j].status == 1){
+        var brickX = (i* (brickWidth+brickPadding)+brickOffsetLeft);
+        var brickY = (j* (brickHeight+brickPadding)+brickOffsetTop);
+
+        bricks[i][j].x =brickX;
+        bricks[i][j].y =brickY;
+        ctx.beginPath();
+        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+        ctx.fillStyle = '#0095DD';
+        ctx.fill();
+        ctx.closePath();
+      }
     }
   }
 }
