@@ -66,6 +66,16 @@ function keyUpHandler(e){
   }
 }
 
+function collisionDetection(){
+  for(i=0; i<brickColumnCount; i++){
+    for(j=0; j<brickRowCount; j++){
+      var b = bricks[i][j];
+      if(x > b.x && x< b.x+brickWidth && y > b.y && y < b.y+brickWidth) dy = -dy;
+      
+    }
+  }
+}
+
 function drawBricks(){
   for(i=0; i<brickColumnCount; i++){
     for(j=0; j<brickRowCount; j++){
